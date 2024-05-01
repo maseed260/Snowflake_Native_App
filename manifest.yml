@@ -1,0 +1,29 @@
+#version identifier
+manifest_version: 1
+
+version:
+  name: V1
+  label: Version One
+  comment: The first version of the application
+
+#artifacts that are distributed from this version of the package
+artifacts:
+  readme: readme.md  
+  setup_script: scripts/setup.sql
+  default_streamlit: app_instance_schema.DQC_STREAMLIT
+  extension_code: true
+
+#runtime configuration for this version
+configuration:
+  log_level: info
+  trace_level: ON_EVENT
+
+references:
+  - consumer_table:
+      label: "Consumer table"
+      description: "table in the consumer's account on which data quality checks needs to be performed"
+      privileges:
+        - SELECT
+      object_type: TABLE
+      multi_valued: false
+      register_callback: app_instance_schema.register_reference
